@@ -47,7 +47,7 @@ Cualquier intento de entrar a una URL protegida sin sesión redirige al login.
 
 ## Video de demostración
 
-▶️ [Ver video (3 min)](PEGA_AQUI_TU_LINK)
+▶️ [Ver video](https://youtu.be/v8s0-W0xObM)
 
 El video muestra:
 1. El funcionamiento del login (credenciales incorrectas y correctas).
@@ -56,7 +56,7 @@ El video muestra:
 
 ---
 
-## ✨ Funcionalidades
+## Funcionalidades
 
 - ✅ Inicio y cierre de sesión con usuario y contraseña
 - ✅ Contraseñas encriptadas con **bcrypt**
