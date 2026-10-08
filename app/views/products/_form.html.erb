@@ -1,0 +1,38 @@
+<%= form_with(model: product, class: "form") do |form| %>
+  <% if product.errors.any? %>
+    <div class="alert alert-error">
+      <strong><%= pluralize(product.errors.count, "error") %> impidieron guardar:</strong>
+      <ul>
+        <% product.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name, "Nombre" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description, "Descripción" %>
+    <%= form.text_area :description, rows: 4 %>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <%= form.label :price, "Precio ($)" %>
+      <%= form.number_field :price, step: 0.01 %>
+    </div>
+    <div class="form-group">
+      <%= form.label :stock, "Stock" %>
+      <%= form.number_field :stock %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit "Guardar", class: "btn btn-primary" %>
+    <%= link_to "Cancelar", products_path, class: "btn btn-gray" %>
+  </div>
+<% end %>

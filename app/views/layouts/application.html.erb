@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Panel de Productos</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="<%= logged_in? ? 'app' : 'auth' %>">
+    <% if logged_in? %>
+      <nav class="navbar">
+        <div class="brand">📦 Panel de Productos</div>
+        <div class="user-box">
+          <span>👤 <%= current_user.username %></span>
+          <%= button_to "Cerrar sesión", logout_path, method: :delete,
+                class: "btn btn-light btn-sm", form: { class: "inline" } %>
+        </div>
+      </nav>
+    <% end %>
+
+    <main class="container">
+      <% if notice.present? %>
+        <div class="alert alert-success"><%= notice %></div>
+      <% end %>
+      <% if alert.present? %>
+        <div class="alert alert-error"><%= alert %></div>
+      <% end %>
+
+      <%= yield %>
+    </main>
+  </body>
+</html>

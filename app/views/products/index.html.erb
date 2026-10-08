@@ -1,0 +1,70 @@
+<div class="page-header">
+  <div>
+    <h1>Productos</h1>
+    <p class="muted">Administra tu inventario</p>
+  </div>
+  <%= link_to "+ Nuevo producto", new_product_path, class: "btn btn-primary" %>
+</div>
+
+<div class="stats">
+  <div class="stat-card">
+    <span class="stat-number"><%= @products.size %></span>
+    <span class="stat-label">Productos registrados</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number"><%= @products.sum { |p| p.stock.to_i } %></span>
+    <span class="stat-label">Unidades en stock</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number"><%= number_to_currency(@products.sum { |p| p.price.to_f * p.stock.to_i }) %></span>
+    <span class="stat-label">Valor del inventario</span>
+  </div>
+</div>
+
+<div class="card">
+  <% if @products.any? %>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @products.each do |product| %>
+          <tr>
+            <td><strong><%= product.name %></strong></td>
+            <td class="muted"><%= truncate(product.description, length: 40) %></td>
+            <td><%= number_to_currency(product.price) %></td>
+            <td>
+              <% if product.stock.to_i == 0 %>
+                <span class="badge badge-out">Agotado</span>
+              <% elsif product.stock.to_i < 10 %>
+                <span class="badge badge-low"><%= product.stock %> (bajo)</span>
+              <% else %>
+                <span class="badge badge-ok"><%= product.stock %></span>
+              <% end %>
+            </td>
+            <td>
+              <div class="actions">
+                <%= link_to "Ver", product, class: "btn btn-gray btn-sm" %>
+                <%= link_to "Editar", edit_product_path(product), class: "btn btn-gray btn-sm" %>
+                <%= button_to "Eliminar", product, method: :delete,
+                      class: "btn btn-danger btn-sm",
+                      form: { class: "inline", data: { turbo_confirm: "¿Seguro que quieres eliminar este producto?" } } %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div class="empty">
+      <div class="empty-icon">📭</div>
+      <p>Aún no hay productos. ¡Crea el primero!</p>
+    </div>
+  <% end %>
+</div>

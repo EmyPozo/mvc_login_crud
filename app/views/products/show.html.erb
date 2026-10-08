@@ -1,0 +1,29 @@
+<div class="page-header">
+  <div>
+    <h1><%= @product.name %></h1>
+    <p class="muted">Detalle del producto</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="detail-row">
+    <span class="detail-label">Descripción</span>
+    <span><%= @product.description %></span>
+  </div>
+  <div class="detail-row">
+    <span class="detail-label">Precio</span>
+    <span><%= number_to_currency(@product.price) %></span>
+  </div>
+  <div class="detail-row">
+    <span class="detail-label">Stock</span>
+    <span><%= @product.stock %> unidades</span>
+  </div>
+
+  <div class="form-actions">
+    <%= link_to "Editar", edit_product_path(@product), class: "btn btn-primary" %>
+    <%= link_to "Volver", products_path, class: "btn btn-gray" %>
+    <%= button_to "Eliminar", @product, method: :delete,
+          class: "btn btn-danger",
+          form: { class: "inline", data: { turbo_confirm: "¿Seguro que quieres eliminar este producto?" } } %>
+  </div>
+</div>
